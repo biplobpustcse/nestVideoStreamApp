@@ -13,6 +13,8 @@ export class VideoController {
         { name: 'cover', maxCount: 1 },
     ]))
     async createBook(@Res() response, @Req() request, @Body() video: Video, @UploadedFiles() files: { video?: Express.Multer.File[], cover?: Express.Multer.File[] }) {
+        console.log("response create video:");
+        console.log(response);
         const requestBody = { createdBy: request.user, title: video.title, video: files.video[0].filename, coverImage: files.cover[0].filename }
         const newVideo = await this.videoService.createVideo(requestBody);
         return response.status(HttpStatus.CREATED).json({
