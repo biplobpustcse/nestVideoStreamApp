@@ -15,6 +15,6 @@ export class Video{
     @Prop({ default: Date.now() })
     uploadDate: Date
     @Prop({type:mongoose.Schema.Types.ObjectId,ref:"User"})
-    createBy: User
+    createdBy: User
 }
 export const VideoSchema = SchemaFactory.createForClass(Video);

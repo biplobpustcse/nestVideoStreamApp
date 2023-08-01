@@ -69,9 +69,7 @@ export default function SearchAppBar({isLoggedIn}) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("video", video);
-        formData.append("cover", cover);
-        const email = localStorage.getItem('email');
-        formData.append("email", email);
+        formData.append("cover", cover);        
 
         const token = localStorage.getItem('token');
         await axios.post("http://localhost:3002/api/v1/video", formData, {

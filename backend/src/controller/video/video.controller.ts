@@ -1,20 +1,21 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { Video } from 'src/model/video.schema';
+//import { Video } from 'src/model/video.schema';
+import { Video } from "../../model/video.schema"
 import { VideoService } from 'src/service/video/video.service';
+import { UserService } from '../../service/user/user.service';
 
 @Controller('/api/v1/video')
 export class VideoController {
-    constructor(private readonly videoService: VideoService) { }
+    constructor(private readonly videoService: VideoService,private readonly userService:UserService) { }
 
     @Post()
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'video', maxCount: 1 },
         { name: 'cover', maxCount: 1 },
     ]))
-    async createBook(@Res() response, @Req() request, @Body() video: Video, @UploadedFiles() files: { video?: Express.Multer.File[], cover?: Express.Multer.File[] }) {
-        console.log("response create video:");
-        console.log(response);
+    async createBook(@Res() response, @Req() request, @Body() video: Video, @UploadedFiles() files: { video?: Express.Multer.File[], cover?: Express.Multer.File[] }) {        
+        //let userInfo = await this.userService.getOne('test@gmail.com');
         const requestBody = { createdBy: request.user, title: video.title, video: files.video[0].filename, coverImage: files.cover[0].filename }
         const newVideo = await this.videoService.createVideo(requestBody);
         return response.status(HttpStatus.CREATED).json({

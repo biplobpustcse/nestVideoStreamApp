@@ -32,7 +32,6 @@ export default function SignIn(props) {
       setErrorMessage(data.response)
     } else {
       localStorage.setItem('token', data.token);
-      localStorage.setItem('email', formData.get('password'));
       setIsLoggedIn(true)
       navigate('/video')
     }
