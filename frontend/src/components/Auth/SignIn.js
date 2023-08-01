@@ -28,7 +28,6 @@ export default function SignIn(props) {
     };
     const { data } = await axios.post("http://localhost:3002/api/v1/user/signin", form);
     if (data.status === parseInt('401')) {
-      localStorage.clear();
       setErrorMessage(data.response)
     } else {
       localStorage.setItem('token', data.token);
